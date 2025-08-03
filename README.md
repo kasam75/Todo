@@ -49,10 +49,12 @@ Lv0 ERD 작성,및 APi작성
 Lv1
 일정생성및 작성(비밀번호 검수받기TodoResponseDto에서 지우기는 함)
 PostMapping 으로 리퀘스트 디티오를 형식에 맞게 받고 세이브함
+
 Lv2
 일정조회및 선택일정 조회
 GetMapping 으로 리스폰 디티오에서 리스트로 받아서 출력하고
 GetMapping 에서 리스폰 디티오에서 해당하는 Id의 값을 출력하기
+
 Lv3
 일정 수정
 PutMapping를 이용해서 리퀘스트 형식으로 받고 그값을 기존 해당하는 Id 값을 리스폰에서 찿아서 바꾸기
