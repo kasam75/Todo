@@ -3,6 +3,7 @@ package spring.todo.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import spring.todo.dto.TodoRequestDto;
 import spring.todo.dto.TodoResponseDto;
 import spring.todo.entity.Todo;
@@ -54,30 +55,39 @@ public class TodoService {
 
     @Transactional
     public TodoResponseDto update(Long todoId, TodoRequestDto todoRequestDto) {
+
         Todo todo = todoRepository.findById(todoId).orElseThrow(
                 () -> new IllegalArgumentException("해당하는 할일이 없습니다.")
         );
+        if (!todo.getPassword().equals(todoRequestDto.getPassword())) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
         todo.update(
                 todoRequestDto.getTitle(),
                 todoRequestDto.getDetail(),
                 todoRequestDto.getName(),
                 todoRequestDto.getPassword());
-        return new TodoResponseDto(
+
+        return new
+                TodoResponseDto(
                 todo.getId(),
                 todo.getTitle(),
                 todo.getDetail(),
                 todo.getName(),
-                todoRequestDto.getCreatedAt(),
-                todoRequestDto.getModifiedAt()
-        );
+                todo.getCreatedAt(),
+                todo.getModifiedAt());
     }
 
     @Transactional
+
     public void deleteTodo(Long todoId, String password) {
-        boolean b = todoRepository.existsById(todoId, password);
-        if (!b) {
-            throw new IllegalArgumentException("해당하는 할일이 없습니다.");
+        Todo todo = todoRepository.findById(todoId)
+                .orElseThrow(() -> new IllegalArgumentException("해당하는 할일이 없습니다."));
+
+        if (!todo.getPassword().equals(password)) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
+
         todoRepository.deleteById(todoId);
     }
 
@@ -96,6 +106,3 @@ public class TodoService {
                 todo.getModifiedAt());
     }
 }
-//new Todo(todoRequest.getTitle(),todoRequest.getDetail(),todoRequest.getName(),todoRequest.getPassword(),todoRequest.getCreatedAt(),todoRequest.getModifiedAt()));
-//        return new TodoResponseDto(saveTodo.getId(), saveTodo.getTitle(), saveTodo.getDetail(),saveTodo.getName(),saveTodo.getPassword(),saveTodo.getCreatedAt(),saveTodo.getUpdatedAt());
-//

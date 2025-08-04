@@ -2,11 +2,8 @@ package spring.todo.dto;
 
 import lombok.Getter;
 
-import java.time.LocalDateTime;
-
 @Getter
 public class TodoRequestDto {
-    private Long id;
     //데이터 베이스에서 불러오는 아이디
     private String title;
     //일정 제목
@@ -16,8 +13,6 @@ public class TodoRequestDto {
     //        일정 작성자명
     private String password;
     //페스워드
-    private LocalDateTime createdAt;
-    //일정 작성/수정일
-    private LocalDateTime modifiedAt;
 }
-
+//아이디와 베이스 엔티티에 적은것은 쓰지 않아도 됨
+//쓰기전에 무엇을 하는지,쓰고나서 잘썻는지 확인

@@ -17,12 +17,10 @@ public class TodoController {
     @PostMapping("/todos")
     public TodoResponseDto createTodo(@RequestBody TodoRequestDto todoRequestDto) {
         return todoService.save(todoRequestDto);
-    }// 데이터 세이브 미구현
-
+    }
     @GetMapping("/todos")
     public List<TodoResponseDto> getTodos() {
         return todoService.findAll();
-        //전체조회  미구현
     }
 
     @GetMapping("/todos/{todoId}")
@@ -30,7 +28,6 @@ public class TodoController {
             @PathVariable Long todoId
     ) {
         return todoService.findTodo(todoId);
-        //단건조회 미구현
     }
 
     @PutMapping("/todos/{todoId}")
@@ -39,14 +36,17 @@ public class TodoController {
             @PathVariable Long todoId
     ) {
         return todoService.update(todoId, todoRequestDto);
-        //수정 미구현
     }
 
     @DeleteMapping("/todos/{todoId}")
     public void deleteTodo(
-            @PathVariable Long todoId, String password
+            @PathVariable Long todoId,
+            @RequestParam String password
     ) {
         todoService.deleteTodo(todoId, password);
     }
 }
 //삭제 미구현
+
+//리퀘스트바디,페스베리어블,리퀘스트파람(클라이언트에게 데이터를 받는 어노테이션)
+//어떤것은 페스워드 필요 어떤것은 패스워드 불필요
